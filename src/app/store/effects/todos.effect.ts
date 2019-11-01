@@ -23,6 +23,17 @@ export class TodosEffects{
             ))
     )
     );
+    
+    
+    deleteTodo$ = createEffect(() => this.actions$.pipe(
+        ofType(fromStore.DELETE_TODO),
+        mergeMap((action) => this.todoService.deleteTodo(action.payload)
+            .pipe(
+                map(() => ({ type: fromStore.DELETE_TODO_SUCCESS, payload: action.payload })),
+                catchError(() => of({ type: fromStore.LOAD_TODOS_FAIL }))
+            ))
+    )
+    );
 
 
     constructor(

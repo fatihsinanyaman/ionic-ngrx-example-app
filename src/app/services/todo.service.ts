@@ -13,7 +13,11 @@ export class TodoService {
   ) { }
 
   getTodos(){
-    return this.http.get('https://jsonplaceholder.typicode.com/todos')
+    return this.http.get('https://jsonplaceholder.typicode.com/todos');
+  }
+  
+  deleteTodo(id: number){
+    return this.http.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
   }
 
 }

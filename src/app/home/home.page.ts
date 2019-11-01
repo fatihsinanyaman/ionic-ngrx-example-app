@@ -5,6 +5,8 @@ import * as fromStore from 'app/store';
 
 import { Todo } from 'app/models/todo';
 
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -12,7 +14,7 @@ import { Todo } from 'app/models/todo';
 })
 export class HomePage {
 
-  todos: Observable<Todo>[]
+  todos: Observable<Array<Todo>>
 
   constructor(
     private store: Store<fromStore.State>
@@ -26,6 +28,10 @@ export class HomePage {
 
     this.store.dispatch(new fromStore.LoadTodos());
 
+  }
+
+  deleteTodo(id: number){
+    this.store.dispatch(new fromStore.DeleteTodo(id));
   }
 
 }

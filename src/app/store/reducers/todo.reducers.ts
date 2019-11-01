@@ -1,4 +1,4 @@
-import * as fromTodos from 'app/actions/todo.actions';
+import * as fromTodos from 'app/store/actions/todo.actions';
 import { Todo } from 'app/models/todo';
 
 export interface TodoState {
@@ -39,11 +39,11 @@ export function reducer(
             }
         }
         case fromTodos.LOAD_TODOS_SUCCESS: {
-            console.log('payload', action.payload);
             return {
-                ...state, 
+                ...state,
                 loading: false,
-                loaded: true
+                loaded: true,
+                data: action.payload
             }
         }
         case fromTodos.LOAD_TODOS_FAIL: {
@@ -51,6 +51,15 @@ export function reducer(
                 ...state, 
                 loading: false,
                 loaded: false
+            }
+        }
+        case fromTodos.DELETE_TODO_SUCCESS: {
+            console.log(action.payload);
+            return {
+                ...state, 
+                loading: false,
+                loaded: false,
+                data: state.data.filter(t => t.id !== action.payload)
             }
         }
     }
